@@ -38,10 +38,15 @@ if [ ! -f $BASE_IMAGE ]; then
 	7z x freedos-dev.7z
 fi
 
-"${QEMU}" -name $NAME -machine $MACHINE -m $RAM_MB -overcommit mem-lock=off -no-user-config -nodefaults -rtc base=utc,driftfix=slew -no-hpet -boot menu=off,strict=on \
-	-msg timestamp=on -drive format=raw,file=$BASE_IMAGE,cache=none -hdb fat:rw:raw:$SOURCE_DIR -cdrom $LIVECD_IMAGE \
-	-device sb16 -device adlib -soundhw pcspk \
+"${QEMU}" -name $NAME -m $RAM_MB -overcommit mem-lock=off -no-user-config -nodefaults -rtc base=utc,driftfix=slew -no-hpet -boot menu=off,strict=on \
+	-machine $MACHINE \
+	-msg timestamp=on \
+	-drive file=$BASE_IMAGE,format=raw,index=0,media=disk,cache=none \
+	-drive file=fat:rw:$SOURCE_DIR,format=raw,index=1,media=disk,cache=none \
+	-cdrom $LIVECD_IMAGE \
+	-device sb16 -device adlib \
 	-vga cirrus -display sdl \
 	-net nic,model=pcnet -net user \
-	-full-screen \
 	-usbdevice mouse -boot c
+	#-device sb16 -device adlib -soundhw pcspk \
+	#-full-screen \
