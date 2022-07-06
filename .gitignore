@@ -1,7 +1,9 @@
+readme.txt
 qemu
 *.7z
 *.bak
 *.img
+*.iso
 *.zip
 src/**/*.err
 src/**/*.exe
