@@ -3,3 +3,6 @@ qemu
 *.bak
 *.img
 *.zip
+src/**/*.err
+src/**/*.exe
+src/**/*.obj
