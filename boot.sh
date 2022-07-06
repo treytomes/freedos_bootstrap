@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Combine the build, run, and start scripts.
+
 # Create a new image:
 # qemu-img create -f raw dev.img 512M
 
@@ -15,7 +17,9 @@ LIVECD_IMAGE=FD13LIVE.iso
 SOURCE_DIR=./src
 
 # Note: If you want to use the Linux version of QEMU on WSL, you gotta get GTK working.  Which means updating Windows 10.  I didn't.
-sudo apt-get install p7zip-full qemu-utils qemu-kvm qemu qemu-system-i386
+#sudo apt-get update
+#sudo apt-get upgrade -y
+sudo apt-get install -y p7zip-full qemu-utils qemu-kvm qemu qemu-system-i386 wget
 
 if [ ! -f $LIVECD_IMAGE ]; then
 	if [ ! -f FD13-LiveCD.zip ]; then
@@ -44,9 +48,8 @@ fi
 	-drive file=$BASE_IMAGE,format=raw,index=0,media=disk,cache=none \
 	-drive file=fat:rw:$SOURCE_DIR,format=raw,index=1,media=disk,cache=none \
 	-cdrom $LIVECD_IMAGE \
-	-device sb16 -device adlib \
+	-device sb16 -device adlib -soundhw pcspk \
 	-vga cirrus -display sdl \
 	-net nic,model=pcnet -net user \
 	-usbdevice mouse -boot c
-	#-device sb16 -device adlib -soundhw pcspk \
 	#-full-screen \
