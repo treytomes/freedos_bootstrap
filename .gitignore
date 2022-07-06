@@ -6,3 +6,4 @@ qemu
 src/**/*.err
 src/**/*.exe
 src/**/*.obj
+# TODO: Should I ignore the .lnk files too?  I'm not so sure.
