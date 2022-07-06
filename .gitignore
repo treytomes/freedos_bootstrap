@@ -1,0 +1,5 @@
+qemu
+*.7z
+*.bak
+*.img
+*.zip
